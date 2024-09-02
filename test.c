@@ -9,23 +9,21 @@
 #define DEVICE_BLTEST "/dev/dht11"
 int main(void)
 {
-	int humidityfd;
+	int temperaturefd;
 	int ret = 0;
 	char buf[5];
 	unsigned char  tempz = 0;
 	unsigned char  tempx = 0;
-	unsigned char  humidiyz = 0;
-	unsigned char  humidiyx = 0;
 	
-	humidityfd = open(DEVICE_BLTEST, O_RDONLY);
-	if(humidityfd < 0)
+	temperaturefd = open(DEVICE_BLTEST, O_RDONLY);
+	if(temperaturefd < 0)
 	{
 		perror("can not open device");
 		exit(1);
 	}
 	while(1)
 	{
-		ret = read(humidityfd,buf,sizeof(buf));
+		ret = read(temperaturefd,buf,sizeof(buf));
     	if(ret < 0)
     	{
     		printf("read err!\n");
@@ -39,9 +37,9 @@ int main(void)
 		sleep(2);
 	}
 	
-	if (humidityfd >= 0)	 //close humidityfd if open
+	if temperaturefd >= 0)	
 	{
-		close(humidityfd);
+		close(temperaturefd);
 	}
 	
 	return 0;
