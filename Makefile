@@ -3,7 +3,7 @@
 4412_KERNEL_DIR = /lib/modules/$(shell uname -r)/build
 ##/home/joeko/android-kernel-dma4412u
 ifneq ($(KERNELRELEASE),)
-	obj-m += dht11.o
+	obj-m += dht11_kernel.o
 else
 	KERNELDIR ?= $(4412_KERNEL_DIR)
 	
