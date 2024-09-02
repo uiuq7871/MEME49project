@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>	//system
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#define DEVICE_BLTEST "/dev/dht11"
+int main(void)
+{
+	int humidityfd;
+	int ret = 0;
+	char buf[5];
+	unsigned char  tempz = 0;
+	unsigned char  tempx = 0;
+	unsigned char  humidiyz = 0;
+	unsigned char  humidiyx = 0;
+	
+	humidityfd = open(DEVICE_BLTEST, O_RDONLY);
+	if(humidityfd < 0)
+	{
+		perror("can not open device");
+		exit(1);
+	}
+	while(1)
+	{
+		ret = read(humidityfd,buf,sizeof(buf));
+    	if(ret < 0)
+    	{
+    		printf("read err!\n");
+		}
+        else
+		{
+			tempz		=buf[2];
+			tempx		=buf[3];
+			printf("temperature = %d.%d\n", tempz, tempx);	
+        }
+		sleep(2);
+	}
+	
+	if (humidityfd >= 0)	 //close humidityfd if open
+	{
+		close(humidityfd);
+	}
+	
+	return 0;
+}
